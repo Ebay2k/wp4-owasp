@@ -38,3 +38,29 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
+
+.project-card {
+  background: #222533;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #2f3242;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.project-card h2 {
+  margin-bottom: 0.5rem;
+}
+
+.project-card p {
+  margin-bottom: 0.5rem;
+}
+
+.project-card button {
+  margin-top: 0.8rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #7c3aed;
+  color: white;
+}
