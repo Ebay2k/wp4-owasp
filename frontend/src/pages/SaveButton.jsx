@@ -1,5 +1,6 @@
 function clickMe() {
-  return('Project opgeslagen!');
+  localStorage.setItem('value', 'Project opgeslagen!')
+      console.log(localStorage.getItem("value"))
   }
 
 export default function SaveButton() {
