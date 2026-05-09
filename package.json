@@ -1,15 +1,15 @@
 {
-  "name": "wp4-1b6Fox",
+  "name": "wp4-2026-pwa-wp4-2026-pwa-1b6-fox",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:* dev:*",
-    "dev:backend": "docker compose up --build",
-    "dev:frontend": "vite frontend",
-    "build": "vite build",
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:backend": "docker compose up --build --menu=0",
+    "dev:frontend": "vite ./frontend",
+    "build": "vite build ./frontend",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview ./frontend"
   },
   "dependencies": {
     "react": "^19.2.4",
