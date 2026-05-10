@@ -7,8 +7,18 @@
     <link rel="manifest" href="/app.webmanifest" />
     <title>wp4</title>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js", {
+            scope: "./",
+          }).then(result =>
+            console.log(result))
+      }
+    </script>
   </body>
 </html>
