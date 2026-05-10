@@ -1,3 +1,5 @@
+import '/src/App.css';
+
 function clickMe() {
   localStorage.setItem('value', 'Project opgeslagen!')
       console.log(localStorage.getItem("value"))
@@ -6,7 +8,7 @@ function clickMe() {
 export default function SaveButton() {
   return (
     <div>
-      <button onClick={clickMe}>
+      <button className="savebutton" onClick={clickMe}>
         Opslaan
       </button>
     </div>
