@@ -1,4 +1,3 @@
-import '/src/App.css';
 
 function clickMe() {
   localStorage.setItem('value', 'Project opgeslagen!')
