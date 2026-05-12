@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function ProjectCard() {
   return (
     <div className="project-card">
@@ -8,10 +10,13 @@ function ProjectCard() {
       <p>Locatie: Amsterdam</p>
 
       <p>
-        Werk aan een AI-project bij een innovatief bedrijf gericht op duurzaamheid.
+        Werk aan een AI-project bij een innovatief bedrijf gericht op
+        duurzaamheid.
       </p>
 
-      <button>Bekijk project</button>
+      <Link to="/projects/1" className="project-card-link">
+        Bekijk project
+      </Link>
     </div>
   );
 }
