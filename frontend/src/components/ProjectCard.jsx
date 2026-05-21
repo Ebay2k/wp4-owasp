@@ -1,20 +1,17 @@
 import { Link } from "react-router-dom";
 
-function ProjectCard() {
+function ProjectCard({ project }) {
   return (
     <div className="project-card">
-      <h2>Afstudeerproject: AI voor Duurzaamheid</h2>
+      <h2>{project.title}</h2>
 
-      <p>Bedrijf: GreenTech Solutions</p>
+      <p>Bedrijf: {project.company.name}</p>
 
-      <p>Locatie: Amsterdam</p>
+      <p>Startdatum: {project.start_date}</p>
 
-      <p>
-        Werk aan een AI-project bij een innovatief bedrijf gericht op
-        duurzaamheid.
-      </p>
+      <p>{project.description}</p>
 
-      <Link to="/projects/1" className="project-card-link">
+      <Link to={`/projects/${project.id}`} className="project-card-link">
         Bekijk project
       </Link>
     </div>
