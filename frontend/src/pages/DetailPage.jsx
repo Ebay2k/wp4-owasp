@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import './DetailPage.css';
+import clickMe from './SaveButton.jsx'
 import { useParams, Link } from 'react-router-dom';
 
 export default function DetailPage() {
@@ -8,6 +9,21 @@ export default function DetailPage() {
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const saveProject = () => {
+    const project = {
+      title: detail.title,
+      company: detail.company?.name,
+      description: detail.description
+    };
+
+    const existingProjects =
+      JSON.parse(localStorage.getItem("savedProjects")) || [];
+
+    existingProjects.push(project);
+
+    localStorage.setItem("savedProjects",JSON.stringify(existingProjects));
+  };
 
   useEffect(() => {
     fetch(`http://localhost:8000/listings/${id}`)
@@ -53,7 +69,7 @@ export default function DetailPage() {
             >
               Contact: {detail.contact?.name}
             </button>
-            <button className="btn save">Opslaan</button>
+            <button className="btn save" onClick={() => {saveProject(); clickMe();}}>Opslaan</button>
             <button
                 className="btn share"
                 onClick={() => {
