@@ -66,7 +66,7 @@ export default function DetailPage() {
         >
           Contact: {detail.contact?.name}
         </button>
-        <button className="btn save">Opslaan</button>
+        <button onClick={saveProject} className="btn save">Opslaan</button>
         <button className="btn share">Delen</button>
       </div>
     </div>
