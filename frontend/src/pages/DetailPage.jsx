@@ -11,7 +11,14 @@ export default function DetailPage() {
       title: "Backend Developer",
       company: "ACME",
       description: "Short description"
-      };
+    };
+
+    const existingProjects =
+      JSON.parse(local.getItem("savedProjects")) || [];
+
+    existingProjects.push(project);
+
+    localstorage.setItem("savedProjects",JSON.stringify(existingProjects));
     };
 
   useEffect(() => {
