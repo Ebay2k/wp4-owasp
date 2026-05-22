@@ -6,6 +6,14 @@ export default function DetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const saveProject = () => {
+    const project = {
+      title: "Backend Developer",
+      company: "ACME",
+      description: "Short description"
+      };
+    };
+
   useEffect(() => {
     // Listings Fetchen
     fetch('http://localhost:8000/listings?limit=1')
