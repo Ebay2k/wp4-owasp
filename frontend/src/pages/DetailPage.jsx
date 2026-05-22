@@ -8,9 +8,9 @@ export default function DetailPage() {
 
   const saveProject = () => {
     const project = {
-      title: "Backend Developer",
-      company: "ACME",
-      description: "Short description"
+      title: detail.title,
+      company: detail.company?.name,
+      description: detail.description
     };
 
     const existingProjects =
