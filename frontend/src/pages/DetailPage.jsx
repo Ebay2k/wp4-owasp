@@ -14,11 +14,11 @@ export default function DetailPage() {
     };
 
     const existingProjects =
-      JSON.parse(local.getItem("savedProjects")) || [];
+      JSON.parse(localStorage.getItem("savedProjects")) || [];
 
     existingProjects.push(project);
 
-    localstorage.setItem("savedProjects",JSON.stringify(existingProjects));
+    localStorage.setItem("savedProjects",JSON.stringify(existingProjects));
     };
 
   useEffect(() => {
