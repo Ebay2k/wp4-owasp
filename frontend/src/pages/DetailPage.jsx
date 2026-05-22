@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './DetailPage.css';
+import clickMe from './SaveButton.jsx'
 
 export default function DetailPage() {
   const [detail, setDetail] = useState(null);
@@ -66,8 +67,9 @@ export default function DetailPage() {
         >
           Contact: {detail.contact?.name}
         </button>
-        <button onClick={saveProject} className="btn save">Opslaan</button>
+        <button className="btn save" onClick={() => {saveProject(); clickMe();}}>Opslaan</button>
         <button className="btn share">Delen</button>
+      </div>
     </div>
   );
 }
