@@ -54,7 +54,23 @@ export default function DetailPage() {
               Contact: {detail.contact?.name}
             </button>
             <button className="btn save">Opslaan</button>
-            <button className="btn share">Delen</button>
+            <button
+                className="btn share"
+                onClick={() => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: detail.title,
+                            text: `Bekijk dit afstudeerproject: ${detail.title} bij ${detail.company?.name}`,
+                            url: window.location.href,
+                        });
+                    } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        alert('Link gekopieerd!');
+                    }
+                }}
+            >
+                Delen
+            </button>
           </div>
         </div>
       </main>
