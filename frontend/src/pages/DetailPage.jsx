@@ -19,7 +19,7 @@ export default function DetailPage() {
     existingProjects.push(project);
 
     localStorage.setItem("savedProjects",JSON.stringify(existingProjects));
-    };
+  };
 
   useEffect(() => {
     // Listings Fetchen
@@ -68,7 +68,6 @@ export default function DetailPage() {
         </button>
         <button onClick={saveProject} className="btn save">Opslaan</button>
         <button className="btn share">Delen</button>
-      </div>
     </div>
   );
 }
