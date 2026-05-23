@@ -69,7 +69,7 @@ export default function DetailPage() {
             >
               Contact: {detail.contact?.name}
             </button>
-            <button className="btn save" onClick={() => {saveProject(); clickMe();}}>Opslaan</button>
+            <button className="btn save" onClick={saveProject}>Opslaan</button>
             <button
                 className="btn share"
                 onClick={() => {
