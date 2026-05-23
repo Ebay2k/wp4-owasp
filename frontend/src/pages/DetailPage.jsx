@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import './DetailPage.css';
-import clickMe from './SaveButton.jsx'
 import { useParams, Link } from 'react-router-dom';
 
 export default function DetailPage() {
@@ -11,6 +10,7 @@ export default function DetailPage() {
   const [error, setError] = useState(null);
 
   const saveProject = () => {
+    if (!detail) return;
     const project = {
       title: detail.title,
       company: detail.company?.name,
