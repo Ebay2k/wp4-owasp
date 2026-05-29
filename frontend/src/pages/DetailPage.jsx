@@ -12,6 +12,7 @@ export default function DetailPage() {
   const saveProject = () => {
     if (!detail) return;
     const project = {
+      id: detail.id,
       title: detail.title,
       company: detail.company?.name,
       description: detail.description
@@ -40,6 +41,30 @@ export default function DetailPage() {
         setLoading(false);
       });
   }, [id]);
+
+ useEffect(() => {
+   const syncProjects = async () => {
+     const savedProjects = JSON.parse(localStorage.getItem('savedProjects')) || [];
+     if (savedProjects.length === 0) return;
+
+     const updatedProjects = await Promise.all(
+       savedProjects.map(async (project) => {
+         try {
+           const res = await fetch(`http://localhost:8000/listings/${project.id}`);
+           if (!res.ok) return project;
+           return await res.json();
+         } catch {
+           return project;
+         }
+       })
+     );
+
+     localStorage.setItem('savedProjects', JSON.stringify(updatedProjects));
+   };
+
+   window.addEventListener('online', syncProjects);
+   return () => window.removeEventListener('online', syncProjects);
+ }, []);
 
   if (loading) return <div><Navbar /><p>Laden...</p></div>;
   if (error) return <div><Navbar /><p>{error}</p></div>;
