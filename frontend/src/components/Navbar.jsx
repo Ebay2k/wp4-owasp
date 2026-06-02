@@ -6,7 +6,7 @@ function Navbar() {
       <h1>Dashboard</h1>
 
       <ul>
-        <li>Home</li>
+        <li><Link to="/">Home</Link></li>
         <li><Link to="/SavedProjects">Opgeslagen</Link></li>
       </ul>
     </nav>
