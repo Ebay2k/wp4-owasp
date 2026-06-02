@@ -23,7 +23,7 @@ export default function DetailPage() {
 
     existingProjects.push(project);
 
-    localStorage.setItem("savedProjects",JSON.stringify(existingProjects));
+    localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
   };
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function DetailPage() {
 
   if (loading) return <div><Navbar /><p>Laden...</p></div>;
   if (error) return <div><Navbar /><p>{error}</p></div>;
-  if (!detail) return null;
+  if (!detail) return <div><Navbar /><p>Geen data gevonden.</p></div>;
 
   return (
     <div>
@@ -118,3 +118,4 @@ export default function DetailPage() {
     </div>
   );
 }
+
