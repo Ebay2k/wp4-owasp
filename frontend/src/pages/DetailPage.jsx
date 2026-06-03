@@ -27,6 +27,12 @@ export default function DetailPage() {
   };
 
   useEffect(() => {
+    const cachedDetail = localStorage.getItem(`cachedDetail_${id}`);
+    if (cachedDetail) {
+      setDetail(JSON.parse(cachedDetail));
+      setLoading(false);
+    }
+
     fetch(`http://localhost:8000/listings/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch');
@@ -34,11 +40,14 @@ export default function DetailPage() {
       })
       .then(data => {
         setDetail(data);
+        localStorage.setItem(`cachedDetail_${id}`, JSON.stringify(data));
         setLoading(false);
       })
       .catch(err => {
-        setError('Fout bij ophalen van data.');
-        setLoading(false);
+        if (!cachedDetail) {
+          setError('Offline - geen gegevens beschikbaar.');
+          setLoading(false);
+        }
       });
   }, [id]);
 

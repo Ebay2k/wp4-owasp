@@ -25,6 +25,22 @@ body {
   list-style: none;
 }
 
+.navbar ul li {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.navbar ul li:hover {
+  background-color: #7c3aed;
+}
+
 .dashboard {
   padding: 2rem;
 }
@@ -109,4 +125,5 @@ button {
     width: 100%;
   }
 }
+
 
