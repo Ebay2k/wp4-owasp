@@ -1,58 +1,59 @@
+const CACHE_NAME = "wp4-v1";
+const ASSETS_TO_CACHE = [
+  "/",
+  "/index.html",
+  "/src/main.jsx",
+  "/src/App.jsx",
+  "/src/index.css",
+  "/app.webmanifest",
+  "/favicon.svg",
+];
+
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches
-      .open("v1")
-      .then((cache) =>
-        cache.addAll([
-          "/",
-          "/index.html",
-        ]),
-      ),
+      .open(CACHE_NAME)
+      .then((cache) => cache.addAll(ASSETS_TO_CACHE))
   );
 });
 
-const cacheFirst = async (event) => {
-  // first, check the cache,
-  const cachedResponse = await caches.match(event.request);
-  // then, if found, return that entry
-  if (cachedResponse !== undefined)
+const cacheFirst = async (request) => {
+  const cachedResponse = await caches.match(request);
+  if (cachedResponse) {
     return cachedResponse;
-  // otherwise, go to network.
-  const networkResponse = await fetch(event.request)
-  const clonedResponse = networkResponse.clone();
-  if (networkResponse.ok) {
-    caches.open('v1').then((cache) => cache.put(event.request, clonedResponse));
   }
-  return networkResponse;
-};
 
-const networkFirst = async (event) => {
   try {
-    const networkResponse = await fetch(event.request);
-    const clonedResponse = networkResponse.clone();
-    if (networkResponse.ok)
-      caches
-        .open('v1')
-        .then((cache) => cache.put(event.request, clonedResponse));
-      return networkResponse;
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok) {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, networkResponse.clone());
     }
-
-  catch {
-    return new Response({
-      status: 408,
-      text: 'Network error',
+    return networkResponse;
+  } catch (error) {
+    return new Response('Offline - geen netwerk beschikbaar', {
+      status: 503,
+      statusText: 'Service Unavailable'
     });
   }
-
-  const cachedResponse = await caches.match(event.request);
-  if (cachedResponse !== undefined) {
-    return cachedResponse;
-    }
-  //first go to network,
-  // if that fails, go to cache
-}
+};
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(cacheFirst(event))
-})
+  event.respondWith(cacheFirst(event.request));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
+
