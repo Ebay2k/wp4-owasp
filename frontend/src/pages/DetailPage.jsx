@@ -12,6 +12,7 @@ export default function DetailPage() {
   const saveProject = () => {
     if (!detail) return;
     const project = {
+      id: detail.id,
       title: detail.title,
       company: detail.company?.name,
       description: detail.description
@@ -22,10 +23,16 @@ export default function DetailPage() {
 
     existingProjects.push(project);
 
-    localStorage.setItem("savedProjects",JSON.stringify(existingProjects));
+    localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
   };
 
   useEffect(() => {
+    const cachedDetail = localStorage.getItem(`cachedDetail_${id}`);
+    if (cachedDetail) {
+      setDetail(JSON.parse(cachedDetail));
+      setLoading(false);
+    }
+
     fetch(`http://localhost:8000/listings/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch');
@@ -33,17 +40,20 @@ export default function DetailPage() {
       })
       .then(data => {
         setDetail(data);
+        localStorage.setItem(`cachedDetail_${id}`, JSON.stringify(data));
         setLoading(false);
       })
       .catch(err => {
-        setError('Fout bij ophalen van data.');
-        setLoading(false);
+        if (!cachedDetail) {
+          setError('Offline - geen gegevens beschikbaar.');
+          setLoading(false);
+        }
       });
   }, [id]);
 
   if (loading) return <div><Navbar /><p>Laden...</p></div>;
   if (error) return <div><Navbar /><p>{error}</p></div>;
-  if (!detail) return null;
+  if (!detail) return <div><Navbar /><p>Geen data gevonden.</p></div>;
 
   return (
     <div>
