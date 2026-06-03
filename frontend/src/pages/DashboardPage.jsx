@@ -8,11 +8,23 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const cachedProjects = localStorage.getItem("cachedProjects");
+    if (cachedProjects) {
+      setProjects(JSON.parse(cachedProjects));
+      setLoading(false);
+    }
+
     fetch("http://localhost:8000/listings")
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);
+        localStorage.setItem("cachedProjects", JSON.stringify(data));
         setLoading(false);
+      })
+      .catch((error) => {
+        if (!cachedProjects) {
+          setLoading(false);
+        }
       });
   }, []);
 
