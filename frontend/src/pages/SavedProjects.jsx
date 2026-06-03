@@ -8,9 +8,14 @@ export default function SavedProjects() {
   useEffect(() => {
     const savedProjects =
       JSON.parse(localStorage.getItem("savedProjects")) || [];
-
     setProjects(savedProjects);
   }, []);
+
+  const handleDelete = (indexToRemove) => {
+    const updated = projects.filter((_, index) => index !== indexToRemove);
+    setProjects(updated);
+    localStorage.setItem("savedProjects", JSON.stringify(updated));
+  };
 
   return (
     <div>
@@ -27,9 +32,18 @@ export default function SavedProjects() {
                 <h2>{project.title}</h2>
                 <p>Bedrijf: {project.company}</p>
                 <p>{project.description}</p>
-                <Link to={`/projects/${project.id}`} className="project-card-link">
-                  Bekijk project
-                </Link>
+                <div className="project-card-actions">
+                  <Link to={`/projects/${project.id}`} className="project-card-link">
+                    Bekijk project
+                  </Link>
+
+                  <button
+                    className="project-card-link"
+                    onClick={() => handleDelete(index)}
+                  >
+                    Verwijderen
+                  </button>
+                </div>
               </div>
             ))}
           </div>
