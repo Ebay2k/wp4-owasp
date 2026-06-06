@@ -21,6 +21,15 @@ export default function DetailPage() {
     const existingProjects =
       JSON.parse(localStorage.getItem("savedProjects")) || [];
 
+    const alreadySaved = existingProjects.some(
+      p => p.id === project.id
+    );
+
+    if (alreadySaved) {
+      alert("Dit project is al opgeslagen.");
+      return;
+    }
+
     existingProjects.push(project);
 
     localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
