@@ -33,6 +33,8 @@ export default function DetailPage() {
     existingProjects.push(project);
 
     localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
+
+    alert("Project succesvol opgeslagen!")
   };
 
   useEffect(() => {
