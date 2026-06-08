@@ -38,10 +38,10 @@ export default function SavedProjects() {
                   </Link>
 
                   <button
-                    className="project-card-link"
+                    className="project-card-btn"
                     onClick={() => handleDelete(index)}
                   >
-                    Verwijderen
+                    Verwijder
                   </button>
                 </div>
               </div>
