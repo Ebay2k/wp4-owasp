@@ -1,6 +1,11 @@
 {
-  "short_name": "MDN",
-  "name": "WP4-Fox",
+  "name": "WP4 Fox",
+  "short_name": "WP4 Fox",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#6d28d9",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/favicon-192x192.png",
@@ -12,9 +17,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "start_url": "/",
-  "display": "standalone",
-  "theme_color": "black",
-  "background_color": "white"
+  ]
 }
