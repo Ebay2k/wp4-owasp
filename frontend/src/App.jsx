@@ -1,18 +1,22 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardPage from "./pages/DashboardPage.jsx";
-import DetailPage from "./pages/DetailPage.jsx";
-import SaveButton from "./pages/SaveButton.jsx";
-import SavedProjects from "./pages/SavedProjects.jsx";
+
+const DashboardPage = lazy(() => import("./pages/DashboardPage.jsx"));
+const DetailPage = lazy(() => import("./pages/DetailPage.jsx"));
+const SaveButton = lazy(() => import("./pages/SaveButton.jsx"));
+const SavedProjects = lazy(() => import("./pages/SavedProjects.jsx"));
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<DashboardPage />} />
-        <Route path="/projects/:id" element={<DetailPage />} />
-        <Route path="/savebtn" element={<SaveButton />} />
-        <Route path="/SavedProjects" element={<SavedProjects />} />
-      </Routes>
+      <Suspense fallback={<p>Laden...</p>}>
+        <Routes>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/projects/:id" element={<DetailPage />} />
+          <Route path="/savebtn" element={<SaveButton />} />
+          <Route path="/SavedProjects" element={<SavedProjects />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }
