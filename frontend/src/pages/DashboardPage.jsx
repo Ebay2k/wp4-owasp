@@ -31,6 +31,10 @@ function DashboardPage() {
 
   if (loading) return <p>Laden...</p>;
 
+  const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <div>
       <Navbar />
@@ -39,7 +43,7 @@ function DashboardPage() {
         <input type="text" onChange={e => setQuery(e.target.value)} />
         <h2>Afstudeerprojecten</h2>
         <div className="project-grid">
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
