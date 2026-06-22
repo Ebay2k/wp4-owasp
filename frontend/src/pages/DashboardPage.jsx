@@ -48,7 +48,7 @@ function DashboardPage() {
             <ProjectCard key={project.id} project={project} />
             ))
           ) : (
-            <p>Geen resultaat gevonden</p>
+            <p>Geen resultaten gevonden</p>
           )}
         </div>
       </main>
