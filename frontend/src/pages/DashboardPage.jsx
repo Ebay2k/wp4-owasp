@@ -6,6 +6,7 @@ import "./DashboardPage.css";
 function DashboardPage() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState("")
 
   useEffect(() => {
     const cachedProjects = localStorage.getItem("cachedProjects");
@@ -34,6 +35,8 @@ function DashboardPage() {
     <div>
       <Navbar />
       <main className="dashboard">
+        <label>Zoeken</label>
+        <input type="text" onChange={e => setQuery(e.target.value)} />
         <h2>Afstudeerprojecten</h2>
         <div className="project-grid">
           {projects.map((project) => (
