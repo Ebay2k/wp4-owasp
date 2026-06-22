@@ -32,7 +32,8 @@ function DashboardPage() {
   if (loading) return <p>Laden...</p>;
 
   const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(query.toLowerCase())
+    project.title.toLowerCase().includes(query.toLowerCase()) ||
+    project.company?.name.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
