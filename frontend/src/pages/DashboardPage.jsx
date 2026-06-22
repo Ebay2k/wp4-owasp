@@ -43,9 +43,13 @@ function DashboardPage() {
         <input className="searchbar" placeholder="Zoeken..." type="text" onChange={e => setQuery(e.target.value)} />
         <h2>Afstudeerprojecten</h2>
         <div className="project-grid">
-          {filteredProjects.map((project) => (
+          {filteredProjects.length > 0 ? (
+            filteredProjects.map((project) => (
             <ProjectCard key={project.id} project={project} />
-          ))}
+            ))
+          ) : (
+            <p>Geen resultaat gevonden</p>
+          )}
         </div>
       </main>
     </div>
