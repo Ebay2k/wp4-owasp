@@ -1,11 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="theme-color" content="#6d28d9" />
     <link rel="manifest" href="/app.webmanifest" />
-    <title>wp4</title>
+    <link rel="apple-touch-icon" href="/favicon-192x192.png" />
+
+    <title>WP4 Fox</title>
   </head>
 
   <body>
@@ -13,11 +17,11 @@
     <script type="module" src="/src/main.jsx"></script>
     <script>
       if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("service-worker.js", {
-            scope: "./",
-          }).then(result =>
-            console.log(result))
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/service-worker.js", {
+            scope: "/",
+          });
+        });
       }
     </script>
   </body>
