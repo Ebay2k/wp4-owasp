@@ -40,8 +40,7 @@ function DashboardPage() {
     <div>
       <Navbar />
       <main className="dashboard">
-        <label>Zoeken</label>
-        <input type="text" onChange={e => setQuery(e.target.value)} />
+        <input className="searchbar" placeholder="Zoeken..." type="text" onChange={e => setQuery(e.target.value)} />
         <h2>Afstudeerprojecten</h2>
         <div className="project-grid">
           {filteredProjects.map((project) => (
