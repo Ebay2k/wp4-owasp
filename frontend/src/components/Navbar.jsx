@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 function Navbar() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [showInstallButton, setShowInstallButton] = useState(true); // Always show for testing
+  const [showInstallButton, setShowInstallButton] = useState(true);
 
   useEffect(() => {
     const handler = (e) => {
@@ -19,7 +19,7 @@ function Navbar() {
 
   const handleInstallClick = async () => {
     if (!deferredPrompt) {
-      alert('Om de app te installeren:\n\nChrome/Edge: Klik op het installatie icoon (⊕) in de adresbalk rechts\nFirefox: Menu → Installeren\nSafari: Deel → Zet op beginscherm');
+      alert('Om de app te installeren:\n\nChrome/Edge: Klik op het installatie icoon in de adresbalk rechts\nFirefox: Menu - Installeren\nSafari: Deel - Zet op beginscherm');
       return;
     }
 
