@@ -8,9 +8,17 @@ export default function DetailPage() {
   const [detail, setDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
 
-  const saveProject = () => {
+  const checkIfSaved = (projectId) => {
+    const existingProjects =
+      JSON.parse(localStorage.getItem("savedProjects")) || [];
+    return existingProjects.some(p => p.id === projectId);
+  };
+
+  const toggleSaveProject = () => {
     if (!detail) return;
+
     const project = {
       id: detail.id,
       title: detail.title,
@@ -26,21 +34,22 @@ export default function DetailPage() {
     );
 
     if (alreadySaved) {
-      alert("Dit project is al opgeslagen.");
-      return;
+      const filtered = existingProjects.filter(p => p.id !== project.id);
+      localStorage.setItem("savedProjects", JSON.stringify(filtered));
+      setIsSaved(false);
+    } else {
+      existingProjects.push(project);
+      localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
+      setIsSaved(true);
     }
-
-    existingProjects.push(project);
-
-    localStorage.setItem("savedProjects", JSON.stringify(existingProjects));
-
-    alert("Project succesvol opgeslagen!")
   };
 
   useEffect(() => {
     const cachedDetail = localStorage.getItem(`cachedDetail_${id}`);
     if (cachedDetail) {
-      setDetail(JSON.parse(cachedDetail));
+      const parsedDetail = JSON.parse(cachedDetail);
+      setDetail(parsedDetail);
+      setIsSaved(checkIfSaved(parsedDetail.id));
       setLoading(false);
     }
 
@@ -51,6 +60,7 @@ export default function DetailPage() {
       })
       .then(data => {
         setDetail(data);
+        setIsSaved(checkIfSaved(data.id));
         localStorage.setItem(`cachedDetail_${id}`, JSON.stringify(data));
         setLoading(false);
       })
@@ -104,35 +114,41 @@ export default function DetailPage() {
             <span className="date">Geplaatst: {detail.created_at?.slice(0, 10)}</span>
             <span className="date">Start: {detail.start_date}</span>
           </div>
-          <p className="detail-description">{detail.description}</p>
-          <div className="detail-actions">
-            <button
-              className="btn email"
-              onClick={() => {
-                window.location.href = `mailto:${detail.contact?.email}?subject=Interesse in afstudeerproject: ${encodeURIComponent(detail.title)}`;
-              }}
-            >
-              Contact: {detail.contact?.name}
-            </button>
-            <button className="btn save" onClick={saveProject}>Opslaan</button>
-            <button
-                className="btn share"
+           <button
+             className={`star-button ${isSaved ? 'saved' : ''}`}
+             onClick={toggleSaveProject}
+             title={isSaved ? 'Project verwijderen' : 'Project opslaan'}
+           >
+             {isSaved ? '★' : '☆'}
+           </button>
+           <p className="detail-description">{detail.description}</p>
+            <div className="detail-actions">
+              <button
+                className="btn email"
                 onClick={() => {
-                    if (navigator.share) {
-                        navigator.share({
-                            title: detail.title,
-                            text: `Bekijk dit afstudeerproject: ${detail.title} bij ${detail.company?.name}`,
-                            url: window.location.href,
-                        });
-                    } else {
-                        navigator.clipboard.writeText(window.location.href);
-                        alert('Link gekopieerd!');
-                    }
+                  window.location.href = `mailto:${detail.contact?.email}?subject=Interesse in afstudeerproject: ${encodeURIComponent(detail.title)}`;
                 }}
-            >
-                Delen
-            </button>
-          </div>
+              >
+                Contact: {detail.contact?.name}
+              </button>
+              <button
+                  className="btn share"
+                  onClick={() => {
+                      if (navigator.share) {
+                          navigator.share({
+                              title: detail.title,
+                              text: `Bekijk dit afstudeerproject: ${detail.title} bij ${detail.company?.name}`,
+                              url: window.location.href,
+                          });
+                      } else {
+                          navigator.clipboard.writeText(window.location.href);
+                          alert('Link gekopieerd!');
+                      }
+                  }}
+              >
+                  Delen
+              </button>
+            </div>
         </div>
       </main>
     </div>
