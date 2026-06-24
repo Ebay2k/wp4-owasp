@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 function ProjectCard({ project }) {
   return (
     <div className="project-card">
-      <h2>{project.title}</h2>
+      <h2>{project?.title ?? 'Onbekende titel'}</h2>
 
-      <p>Bedrijf: {project.company.name}</p>
+      <p>Bedrijf: {project.company?.name ?? 'Onbekend bedrijf'}</p>
 
-      <p>Startdatum: {project.start_date}</p>
+      <p>Startdatum: {project?.start_date ?? 'Onbekend'}</p>
 
-      <p>{project.description}</p>
+      <p>{project?.description ?? 'Geen beschrijving beschikbaar.'}</p>
 
-      <Link to={`/projects/${project.id}`} className="project-card-link">
+      <Link to={`/projects/${project?.id}`} className="project-card-link">
         Bekijk project
       </Link>
     </div>

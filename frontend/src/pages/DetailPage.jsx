@@ -107,12 +107,12 @@ export default function DetailPage() {
         <Link to="/" className="back-link">← Terug naar dashboard</Link>
         <div className="detail-container">
           <div className="detail-header">
-            <h1>{detail.title}</h1>
+            <h1>{detail?.title}</h1>
             <span className="company">{detail.company?.name}</span>
           </div>
           <div className="detail-meta">
             <span className="date">Geplaatst: {detail.created_at?.slice(0, 10)}</span>
-            <span className="date">Start: {detail.start_date}</span>
+            <span className="date">Start: {detail?.start_date}</span>
           </div>
            <button
              className={`star-button ${isSaved ? 'saved' : ''}`}
@@ -121,12 +121,12 @@ export default function DetailPage() {
            >
              {isSaved ? '★' : '☆'}
            </button>
-           <p className="detail-description">{detail.description}</p>
+           <p className="detail-description">{detail?.description}</p>
             <div className="detail-actions">
               <button
                 className="btn email"
                 onClick={() => {
-                  window.location.href = `mailto:${detail.contact?.email}?subject=Interesse in afstudeerproject: ${encodeURIComponent(detail.title)}`;
+                  window.location.href = `mailto:${detail.contact?.email}?subject=Interesse in afstudeerproject: ${encodeURIComponent(detail?.title ?? 'Afstudeerproject')}`;
                 }}
               >
                 Contact: {detail.contact?.name}
@@ -136,8 +136,8 @@ export default function DetailPage() {
                   onClick={() => {
                       if (navigator.share) {
                           navigator.share({
-                              title: detail.title,
-                              text: `Bekijk dit afstudeerproject: ${detail.title} bij ${detail.company?.name}`,
+                              title: detail?.title ?? 'Afstudeerproject',
+                              text: `Bekijk dit afstudeerproject: ${detail?.title ?? 'Project'} bij ${detail.company?.name ?? 'Bedrijf'}`,
                               url: window.location.href,
                           });
                       } else {
@@ -154,4 +154,3 @@ export default function DetailPage() {
     </div>
   );
 }
-
